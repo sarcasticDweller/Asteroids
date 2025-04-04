@@ -25,9 +25,11 @@ def main():
     dt = 0 # delta time
     fps = 60 # frames per second
 
-    things = []
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-    things.append(player)
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+    Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     while True:
         # make the window's close button work
@@ -36,8 +38,8 @@ def main():
                 return
 
         dt = clock.tick(fps) / 1000 # convert to seconds
-        update(dt, things)
-        draw(screen, things)
+        update(dt, updatable)
+        draw(screen, drawable)
 
 
 
