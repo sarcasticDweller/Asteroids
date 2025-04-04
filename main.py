@@ -5,7 +5,12 @@ import pygame
 from constants import *
 from player import Player 
 
-def draw(screen, sprite):
+def update(dt, things):
+    for thing in things:
+        thing.update(dt)
+
+def draw(screen, sprites):
+    screen.fill(BLACK)
     for sprite in sprites:
         sprite.draw(screen)
     pygame.display.flip()
@@ -29,9 +34,9 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        screen.fill(BLACK)
 
         dt = clock.tick(fps) / 1000 # convert to seconds
+        update(dt, things)
         draw(screen, things)
 
 
