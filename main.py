@@ -3,7 +3,7 @@
 import pygame
 # project libraries
 from constants import *
-from player import Player 
+import player, asteroid, asteroidfield
 
 def update(dt, things):
     for thing in things:
@@ -27,9 +27,14 @@ def main():
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
 
-    Player.containers = (updatable, drawable)
-    Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    player.Player.containers = (updatable, drawable)
+    player.Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
+    asteroid.Asteroid.containers = (updatable, drawable, asteroids)
+    asteroidfield.AsteroidField.containers = (updatable)
+    asteroidfield.AsteroidField()
 
     while True:
         # make the window's close button work

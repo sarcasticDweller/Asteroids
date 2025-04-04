@@ -25,8 +25,8 @@ class Player(circleshape.CircleShape):
             self.rotate(-dt)
         if keys[pygame.K_d]:
             self.rotate(dt)
-        
-        self.move(dt)
+        if keys[pygame.K_w]:
+            self.move(dt)
 
     def draw(self, screen):
         pygame.draw.polygon(screen, WHITE, self.triangle(), 2)
