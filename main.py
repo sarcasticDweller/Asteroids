@@ -1,6 +1,6 @@
 #!venv/bin/python3
 # python libraries
-import pygame
+import pygame, sys, os
 # project libraries
 from constants import *
 import player, asteroid, asteroidfield
@@ -8,6 +8,12 @@ import player, asteroid, asteroidfield
 def update(dt, things):
     for thing in things:
         thing.update(dt)
+
+def collide(player, things):
+    for thing in things:
+        if player.collide(thing):
+            return True
+            # else, continue
 
 def draw(screen, sprites):
     screen.fill(BLACK)
@@ -30,7 +36,7 @@ def main():
     asteroids = pygame.sprite.Group()
 
     player.Player.containers = (updatable, drawable)
-    player.Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    player_one = player.Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     asteroid.Asteroid.containers = (updatable, drawable, asteroids)
     asteroidfield.AsteroidField.containers = (updatable)
@@ -44,6 +50,9 @@ def main():
 
         dt = clock.tick(fps) / 1000 # convert to seconds
         update(dt, updatable)
+        if collide(player_one, asteroids):
+            print("Game over!")
+            sys.exit(0)
         draw(screen, drawable)
 
 
